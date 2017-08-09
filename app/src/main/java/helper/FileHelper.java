@@ -66,7 +66,28 @@ public class FileHelper {
             Log.d(TAG, ex.getMessage());
         }
         return false;
+    }
+    public static boolean editFile(String path, String fileName, String data){
+        String line=null;
+        String verify,putData;
+        FileInputStream inputStream= null;
+        try {
+            inputStream = new FileInputStream(new File(path+fileName));
+            InputStreamReader inputStreamReader=new InputStreamReader(inputStream);
+            BufferedReader reader=new BufferedReader(inputStreamReader);
+            StringBuilder builder=new StringBuilder();
+            while ((line=reader.readLine())!=null){
+                verify = reader.readLine();
+                if(verify != null){
+                     putData= verify.replace("here", "there");
+//                    .write(putData);
+                }
 
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
+        return false;
     }
 }

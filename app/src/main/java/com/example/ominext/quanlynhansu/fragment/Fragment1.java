@@ -8,30 +8,24 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ominext.quanlynhansu.R;
 import com.example.ominext.quanlynhansu.adapter.RecyclerViewAdapterFFrm1;
 import com.example.ominext.quanlynhansu.model.EmployeesData;
-import com.example.ominext.quanlynhansu.model.JSNWriter;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +33,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import helper.LogUtils;
 
 public class Fragment1 extends Fragment {
 
@@ -57,6 +50,10 @@ public class Fragment1 extends Fragment {
     RecyclerViewAdapterFFrm1 adapter;
     @BindView(R.id.frame_add_employees)
     FrameLayout frameAddEmployees;
+    @BindView(R.id.bt_delete)
+    Button btDelete;
+    @BindView(R.id.edit)
+    Button edit;
 
     public static Fragment1 newInstance() {
         Fragment1 fragment = new Fragment1();
@@ -140,4 +137,14 @@ public class Fragment1 extends Fragment {
         transaction.commit();
     }
 
+    @OnClick({R.id.bt_delete, R.id.edit})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.bt_delete:
+
+                break;
+            case R.id.edit:
+                break;
+        }
+    }
 }

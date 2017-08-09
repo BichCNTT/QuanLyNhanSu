@@ -179,7 +179,6 @@ public class AddEmployees extends Fragment {
                 break;
         }
     }
-
     //    khi kích vào img calendar thì hiển thị lên 1 dialog nd là 1 datpicker
     @OnClick(R.id.img_calendar)
     public void onViewClicked() {
