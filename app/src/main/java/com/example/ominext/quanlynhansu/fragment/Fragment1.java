@@ -58,10 +58,10 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
     RecyclerViewAdapterFFrm1 adapter;
     @BindView(R.id.frame_add_employees)
     FrameLayout frameAddEmployees;
-//    @BindView(R.id.bt_delete)
-//    Button btDelete;
-//    @BindView(R.id.bt_edit)
-//    Button btEdit;
+    @BindView(R.id.bt_delete)
+    Button btDelete;
+    @BindView(R.id.bt_edit)
+    Button btEdit;
     int position = 0;
 
     File file;
@@ -120,6 +120,7 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
 
                 String idE = employeeObj.getString("id");
                 String nameE = employeeObj.getString("name");
+//            LogUtils.e("++++++++++++" + nameE);
                 String sexE = employeeObj.getString("sex");
                 String birthDayE = employeeObj.getString("birth");
                 String phoneE = employeeObj.getString("phone");
@@ -165,34 +166,36 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
         mAppDir = file.getAbsolutePath() + "/";
     }
 
-//    @OnClick({R.id.bt_delete, R.id.bt_edit})
-//    public void onViewClicked(View view) {
-//        switch (view.getId()) {
-//            case R.id.bt_delete:
+    @OnClick({R.id.bt_delete, R.id.bt_edit})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.bt_delete:
                 //có vị trí -> tìm data ở hàng thứ i -> xóa data đó đi
-//                init();
-//                EmployeesData employee = new EmployeesData();
-//                employee.setmId(dataList.get(position).getmId());
-//                employee.setmName(dataList.get(position).getmName());
-//                employee.setmSex(dataList.get(position).getmSex());
-//                employee.setmDateOfBirth(dataList.get(position).getmDateOfBirth());
-//                employee.setmPhone(dataList.get(position).getmPhone());
-//                try {
-//                    StringWriter output = new StringWriter();
-//                    JSNWriter.writeJsonStream(output, employee);
-//                    String jsonText = output.toString();
-//                    FileHelper.deleteAnEmployee(mAppDir, fileName, fileName1, jsonText);
-//                    Toast.makeText(getContext(),"Xóa thành công",Toast.LENGTH_SHORT).show();
-//                    adapter.notifyDataSetChanged();
-//                } catch (IOException e) {
-//                    Toast.makeText(getContext(),"Xóa thất bại",Toast.LENGTH_SHORT).show();
-//                }
-//                break;
-//            case R.id.bt_edit:
-//
-//                break;
-//        }
-//    }
+                init();
+                EmployeesData employee = new EmployeesData();
+                employee.setmId(dataList.get(position).getmId());
+                employee.setmName(dataList.get(position).getmName());
+                employee.setmSex(dataList.get(position).getmSex());
+                employee.setmDateOfBirth(dataList.get(position).getmDateOfBirth());
+                employee.setmPhone(dataList.get(position).getmPhone());
+                try {
+                    StringWriter output = new StringWriter();
+                    JSNWriter.writeJsonStream(output, employee);
+                    String jsonText = output.toString();
+                    FileHelper.deleteAnEmployee(mAppDir, fileName, fileName1, jsonText);
+                    Toast.makeText(getContext(),"Xóa thành công",Toast.LENGTH_SHORT).show();
+                    dataList.remove(position);
+                    adapter.notifyDataSetChanged();
+//                    adapter.s
+                } catch (IOException e) {
+                    Toast.makeText(getContext(),"Xóa thất bại",Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.bt_edit:
+
+                break;
+        }
+    }
 
     @Override
     public void onClick(View view, int position) {

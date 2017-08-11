@@ -32,19 +32,19 @@
                 android:background="@drawable/ic_black_add_employee"
                 android:textAllCaps="false" />
 
-            <!--<Button-->
-                <!--android:id="@+id/bt_edit"-->
-                <!--android:layout_width="50dp"-->
-                <!--android:layout_height="50dp"-->
-                <!--android:layout_margin="20dp"-->
-                <!--android:background="@drawable/ic_edit" />-->
+            <Button
+                android:id="@+id/bt_edit"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/ic_edit" />
 
-            <!--<Button-->
-                <!--android:id="@+id/bt_delete"-->
-                <!--android:layout_width="50dp"-->
-                <!--android:layout_height="50dp"-->
-                <!--android:layout_margin="20dp"-->
-                <!--android:background="@drawable/ic_delete" />-->
+            <Button
+                android:id="@+id/bt_delete"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/ic_delete" />
         </LinearLayout>
 
     </LinearLayout>

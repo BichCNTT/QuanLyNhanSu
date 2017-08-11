@@ -84,14 +84,14 @@ public class FileHelper {
             inputStream = new FileInputStream(input);
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
             BufferedReader reader = new BufferedReader(inputStreamReader);
-            //file Out put
+            //file Output
             outputStream = new FileOutputStream(output);
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
             BufferedWriter writer = new BufferedWriter(outputStreamWriter);
             while ((currentLine = reader.readLine()) != null) {
                 String trimmedLine = currentLine.trim();
                 if (trimmedLine.equals(lineToRemove)) continue;
-                writer.write(currentLine + System.getProperty("line.separator "));
+                writer.write(currentLine + System.getProperty("line.separator"));
             }
             writer.close();
             reader.close();
