@@ -1,26 +1,23 @@
 package com.example.ominext.quanlynhansu.fragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.JsonWriter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.example.ominext.quanlynhansu.R;
 import com.example.ominext.quanlynhansu.adapter.RecyclerViewAdapterFFrm1;
-import com.example.ominext.quanlynhansu.adapter.RecyclerViewAdapterFFrm2;
 import com.example.ominext.quanlynhansu.listener.OnItemClickListener;
 import com.example.ominext.quanlynhansu.model.EmployeesData;
 import com.example.ominext.quanlynhansu.model.JSNWriter;
@@ -64,6 +61,7 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
     Button btEdit;
     int position = 0;
 
+    boolean checked = true;
     File file;
     String mAppDir = null;
     private final String fileName = "nv1.txt";
@@ -78,7 +76,6 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-//      Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment1, container, false);
         unbinder = ButterKnife.bind(this, view);
         return view;
@@ -92,7 +89,8 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
         layoutManager = new GridLayoutManager(getContext(), 1);
         rvListEmployees.setLayoutManager(layoutManager);
         rvListEmployees.setHasFixedSize(true);
-
+        dataList.add(new EmployeesData(1, "2", "3", "3", "3"));
+        dataList.add(new EmployeesData(1, "2", "3", "3", "3"));
         adapter = new RecyclerViewAdapterFFrm1(dataList, getContext());
         rvListEmployees.setAdapter(adapter);
         adapter.setClickListener(this);
@@ -120,7 +118,6 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
 
                 String idE = employeeObj.getString("id");
                 String nameE = employeeObj.getString("name");
-//            LogUtils.e("++++++++++++" + nameE);
                 String sexE = employeeObj.getString("sex");
                 String birthDayE = employeeObj.getString("birth");
                 String phoneE = employeeObj.getString("phone");
@@ -137,13 +134,6 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
         }
     }
 
-    //đọc ra -> so sánh
-//    public String FindData(){
-//        String employee="";
-//
-//        return employee;
-//    }
-//
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -168,38 +158,61 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
 
     @OnClick({R.id.bt_delete, R.id.bt_edit})
     public void onViewClicked(View view) {
+        init();
+        EmployeesData employee = new EmployeesData();
+        employee.setmId(dataList.get(position).getmId());
+        employee.setmName(dataList.get(position).getmName());
+        employee.setmSex(dataList.get(position).getmSex());
+        employee.setmDateOfBirth(dataList.get(position).getmDateOfBirth());
+        employee.setmPhone(dataList.get(position).getmPhone());
         switch (view.getId()) {
             case R.id.bt_delete:
                 //có vị trí -> tìm data ở hàng thứ i -> xóa data đó đi
-                init();
-                EmployeesData employee = new EmployeesData();
-                employee.setmId(dataList.get(position).getmId());
-                employee.setmName(dataList.get(position).getmName());
-                employee.setmSex(dataList.get(position).getmSex());
-                employee.setmDateOfBirth(dataList.get(position).getmDateOfBirth());
-                employee.setmPhone(dataList.get(position).getmPhone());
                 try {
                     StringWriter output = new StringWriter();
                     JSNWriter.writeJsonStream(output, employee);
                     String jsonText = output.toString();
                     FileHelper.deleteAnEmployee(mAppDir, fileName, fileName1, jsonText);
-                    Toast.makeText(getContext(),"Xóa thành công",Toast.LENGTH_SHORT).show();
                     dataList.remove(position);
                     adapter.notifyDataSetChanged();
-//                    adapter.s
+                    Toast.makeText(getContext(), "Xóa thành công", Toast.LENGTH_SHORT).show();
                 } catch (IOException e) {
-                    Toast.makeText(getContext(),"Xóa thất bại",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Xóa thất bại", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.bt_edit:
-
+                //update data lên
                 break;
         }
     }
 
     @Override
-    public void onClick(View view, int position) {
-        view.setBackgroundColor(Color.parseColor("#edfaec"));
-        this.position = position;
+    public void onClick(View view, int position, EmployeesData data) {
+        //set tất cả về false -> chưa check
+        for (int i = 0; i < dataList.size(); i++) {
+            dataList.get(i).setCheck(false);
+        }
+        dataList.get(position).setCheck(true);
+        for(int i=0;i<dataList.size();i++){
+            if(dataList.get(i).getCheck()){
+                view.setBackgroundColor(getResources().getColor(R.color.green));
+            }
+            else {
+                view.setBackgroundColor(getResources().getColor(R.color.white));
+            }
+        }
+
+//        if (dataList.get(position).getCheck()) {
+//            view.setBackgroundColor(getResources().getColor(R.color.green));
+//        } else {
+//            for (int i = 0; i < dataList.size(); i++) {
+//                if (i != position) {
+//                    view.setBackgroundColor(getResources().getColor(R.color.white));
+//                }
+//            }
+//
+//        }
+        adapter.notifyDataSetChanged();
+
     }
 }

@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,13 +69,13 @@ public class RecyclerViewAdapterFFrm1 extends RecyclerView.Adapter<RecyclerViewA
     }
 
     public class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        int i;
+
         TextView mId;
         TextView mTVName;
         TextView mTVSex;
         TextView mTVBirth;
         TextView mTVPhone;
-
+        Boolean checked=false;
         public RecyclerViewHolder(final View itemView) {
             super(itemView);
             mId = (TextView) itemView.findViewById(R.id.id);
@@ -87,7 +88,9 @@ public class RecyclerViewAdapterFFrm1 extends RecyclerView.Adapter<RecyclerViewA
 
         @Override
         public void onClick(View view) {
-            if (clickListener != null) clickListener.onClick(view, getAdapterPosition());
+            if (clickListener != null)
+                clickListener.onClick(view, getAdapterPosition(),employeesDataList.get(getAdapterPosition()));
+
         }
 
     }

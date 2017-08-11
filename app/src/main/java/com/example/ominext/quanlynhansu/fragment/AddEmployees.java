@@ -136,13 +136,7 @@ public class AddEmployees extends Fragment {
                 String phone = edtPhone.getText().toString();
                 String birthDay = edtDateOfBirth.getText().toString();
                 if ((id != "") && (name != "") && (phone != "") && (birthDay != "") && (cbMan.isChecked() || cbMan.isChecked())) {
-//                    if (edtId.getText().toString().length() <= 6) {
                     employee.setmId(Integer.parseInt(edtId.getText().toString()));
-//                    } else
-//                    {
-//                        Toast.makeText(getContext(),"Mã nhân viên tối đa chỉ 6 kí tự. Vui lòng nhập lại! ",Toast.LENGTH_SHORT).show();
-//                        edtId.setText("");
-//                    }
                     employee.setmName(edtName.getText().toString());
                     if (cbMan.isChecked()) {
                         employee.setmSex("Nam");
