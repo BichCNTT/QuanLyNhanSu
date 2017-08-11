@@ -67,7 +67,6 @@ public class AddEmployees extends Fragment {
     ImageView imgCalendar;
     private File file;
     private final String fileName = "nv1.txt";
-    DialogFragment datePicker;
 
     public AddEmployees() {
         // Required empty public constructor

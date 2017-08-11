@@ -16,34 +16,36 @@
             android:id="@+id/rv_listEmployees"
             android:layout_width="match_parent"
             android:layout_height="450dp"></android.support.v7.widget.RecyclerView>
-    <LinearLayout
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/bt_add"
-            android:layout_width="50dp"
-            android:layout_margin="20dp"
-            android:layout_height="50dp"
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/ic_black_add_employee"
-            android:textAllCaps="false" />
+            android:gravity="center">
 
-        <Button
-            android:id="@+id/bt_delete"
-            android:layout_margin="20dp"
-            android:background="@drawable/ic_edit"
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
+            <Button
+                android:id="@+id/bt_add"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_margin="20dp"
+                android:background="@drawable/ic_black_add_employee"
+                android:textAllCaps="false" />
 
-        <Button
-            android:id="@+id/edit"
-            android:background="@drawable/ic_delete"
-            android:layout_width="50dp"
-            android:layout_margin="20dp"
-            android:layout_height="50dp" />
-    </LinearLayout>
+            <!--<Button-->
+                <!--android:id="@+id/bt_edit"-->
+                <!--android:layout_width="50dp"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:layout_margin="20dp"-->
+                <!--android:background="@drawable/ic_edit" />-->
+
+            <!--<Button-->
+                <!--android:id="@+id/bt_delete"-->
+                <!--android:layout_width="50dp"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:layout_margin="20dp"-->
+                <!--android:background="@drawable/ic_delete" />-->
+        </LinearLayout>
 
     </LinearLayout>
 

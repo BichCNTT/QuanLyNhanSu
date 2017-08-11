@@ -3,14 +3,17 @@ package helper;
 import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 
 /**
  * Created by Ominext on 8/7/2017.
@@ -67,19 +70,52 @@ public class FileHelper {
         }
         return false;
     }
-    public static boolean editFile(String path, String fileName, String data){
-        String line=null;
-        String verify,putData;
-        FileInputStream inputStream= null;
+
+    public static boolean deleteAnEmployee(String path, String fileNameInPut, String fileNameOutPut, String lineToRemove) {
+        //đọc file ra 1 chuỗi json rồi xóa
+        File input = new File(path + fileNameInPut);
+        File output = new File(path + fileNameOutPut);
+        FileInputStream inputStream;
+        FileOutputStream outputStream;
+        String currentLine;
+        boolean successful = false;
         try {
-            inputStream = new FileInputStream(new File(path+fileName));
-            InputStreamReader inputStreamReader=new InputStreamReader(inputStream);
-            BufferedReader reader=new BufferedReader(inputStreamReader);
-            StringBuilder builder=new StringBuilder();
-            while ((line=reader.readLine())!=null){
+            //file Input, tên file truyền vào phải là nv1.txt
+            inputStream = new FileInputStream(input);
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            BufferedReader reader = new BufferedReader(inputStreamReader);
+            //file Out put
+            outputStream = new FileOutputStream(output);
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
+            BufferedWriter writer = new BufferedWriter(outputStreamWriter);
+            while ((currentLine = reader.readLine()) != null) {
+                String trimmedLine = currentLine.trim();
+                if (trimmedLine.equals(lineToRemove)) continue;
+                writer.write(currentLine + System.getProperty("line.separator "));
+            }
+            writer.close();
+            reader.close();
+            successful = output.renameTo(input);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return successful;
+    }
+
+    //sửa file text theo id
+    public static boolean editFile(String path, String fileName, String data) {
+        String line = null;
+        String verify, putData;
+        FileInputStream inputStream = null;
+        try {
+            inputStream = new FileInputStream(new File(path + fileName));
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            BufferedReader reader = new BufferedReader(inputStreamReader);
+            StringBuilder builder = new StringBuilder();
+            while ((line = reader.readLine()) != null) {
                 verify = reader.readLine();
-                if(verify != null){
-                     putData= verify.replace("here", "there");
+                if (verify != null) {
+                    putData = verify.replace("here", "there");
 //                    .write(putData);
                 }
 
