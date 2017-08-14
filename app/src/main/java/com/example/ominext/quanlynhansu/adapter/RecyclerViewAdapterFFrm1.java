@@ -35,12 +35,14 @@ public class RecyclerViewAdapterFFrm1 extends RecyclerView.Adapter<RecyclerViewA
     private OnItemClickListener clickListener;
     private List<EmployeesData> employeesDataList = new ArrayList<>();
     private LayoutInflater inflater;
-    Context context;
+    private Context context;
+    private int mSelectedItemPosition = -1;
 
     public RecyclerViewAdapterFFrm1(List<EmployeesData> employeesDataList, Context context) {
         this.employeesDataList = employeesDataList;
         this.context = context;
         inflater = LayoutInflater.from(context);
+
     }
 
     @Override
@@ -57,6 +59,7 @@ public class RecyclerViewAdapterFFrm1 extends RecyclerView.Adapter<RecyclerViewA
         holder.mTVBirth.setText(employeesDataList.get(position).getmDateOfBirth());
         holder.mTVPhone.setText(employeesDataList.get(position).getmPhone());
         holder.mId.setText(employeesDataList.get(position).getmId() + "");
+        holder.bindDataWithViewHolder(employeesDataList.get(position), position);
     }
 
     @Override
@@ -68,15 +71,16 @@ public class RecyclerViewAdapterFFrm1 extends RecyclerView.Adapter<RecyclerViewA
         this.clickListener = itemClickListener;
     }
 
-    public class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
         TextView mId;
         TextView mTVName;
         TextView mTVSex;
         TextView mTVBirth;
         TextView mTVPhone;
-//        LinearLayout linearLayout;
-//        Boolean checked = false;
+        private EmployeesData mDataItem = null;
+        LinearLayout linearLayout;
+
         //k set cho item view mà set cho linearlayout
         public RecyclerViewHolder(View itemView) {
             super(itemView);
@@ -85,15 +89,37 @@ public class RecyclerViewAdapterFFrm1 extends RecyclerView.Adapter<RecyclerViewA
             mTVSex = (TextView) itemView.findViewById(R.id.sex);
             mTVBirth = (TextView) itemView.findViewById(R.id.date);
             mTVPhone = (TextView) itemView.findViewById(R.id.phone);
-//            linearLayout=(LinearLayout)itemView.findViewById(R.id.row);
+            linearLayout = (LinearLayout) itemView.findViewById(R.id.show_employees);
 //            linearLayout.setOnClickListener(this);
-            itemView.setOnClickListener(this);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //Handling for background selection state changed
+                    int previousSelectState = mSelectedItemPosition;
+                    mSelectedItemPosition = getAdapterPosition();
+                    //notify previous selected item
+                    notifyItemChanged(previousSelectState);
+                    notifyItemChanged(mSelectedItemPosition);
+                    if (clickListener != null)
+                        clickListener.onClick(view, getAdapterPosition());
+                }
+            });
         }
+//      lấy
+//        @Override
+//        public void onClick(View view) {
+//            if (clickListener != null)
+//                clickListener.onClick(view, getAdapterPosition());
+//        }
 
-        @Override
-        public void onClick(View view) {
-            if (clickListener != null)
-                clickListener.onClick(view, getAdapterPosition());
+        public void bindDataWithViewHolder(EmployeesData dataItem, int currentPosition) {
+            this.mDataItem = dataItem;
+            //Handle selection  state in object View.
+            if (currentPosition == mSelectedItemPosition) {
+                linearLayout.setBackgroundResource(R.color.green);
+            } else {
+                linearLayout.setBackgroundResource(R.color.white);
+            }
         }
     }
 }

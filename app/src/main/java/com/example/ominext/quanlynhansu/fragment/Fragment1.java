@@ -152,12 +152,13 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
             file.mkdir();
         mAppDir = file.getAbsolutePath() + "/";
     }
-//k kích thì position vẫn bằng gtrị cũ giả dụ =5. k kích nó vẫn bằng 5. tức là sau khi xóa xogn phải cho nó giá trị -1
+
+    //k kích thì position vẫn bằng gtrị cũ giả dụ =5. k kích nó vẫn bằng 5. tức là sau khi xóa xogn phải cho nó giá trị -1
     @OnClick({R.id.bt_delete, R.id.bt_edit})
     public void onViewClicked(View view) {
         EmployeesData employee = null;
         //tạo 1 ds xóa
-        if ((position>-1)&&(dataList.size() > 0) && (position <= dataList.size())) {
+        if ((position > -1) && (dataList.size() > 0) && (position <= dataList.size())) {
             init();
             employee = new EmployeesData();
             employee.setmId(dataList.get(position).getmId());
@@ -169,7 +170,7 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
         //hiển thị duy nhất 1 cái lên lv. lưu đc o load d
         switch (view.getId()) {
             case R.id.bt_delete:
-                if ((position>-1)&&(dataList.size() > 0) && (position <= dataList.size())) {
+                if ((position > -1) && (dataList.size() > 0) && (position <= dataList.size())) {
                     //có vị trí -> tìm data ở hàng thứ i -> xóa data đó đi
                     try {
                         StringWriter output = new StringWriter();
@@ -179,7 +180,7 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
                         dataList.remove(position);
                         adapter.notifyDataSetChanged();
                         Toast.makeText(getContext(), "Xóa thành công", Toast.LENGTH_SHORT).show();
-                        position=-1;
+                        position = -1;
                     } catch (IOException e) {
                         Toast.makeText(getContext(), "Xóa thất bại", Toast.LENGTH_SHORT).show();
                     }
@@ -188,6 +189,8 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
                 }
                 break;
             case R.id.bt_edit:
+//               xóa rồi thêm vào
+
                 break;
         }
     }
@@ -195,18 +198,5 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
     @Override
     public void onClick(View view, int position) {
         this.position = position;
-        for (int i = 0; i < dataList.size(); i++) {
-            dataList.get(i).setCheck(false);
-        }
-        dataList.get(position).setCheck(true);
-        for (int i = 0; i < dataList.size(); i++) {
-            if (i == position) {
-                rvListEmployees.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.green));
-
-            }
-            else {
-                rvListEmployees.getChildAt(i).setBackgroundResource(R.color.white);
-            }
-        }
     }
 }
