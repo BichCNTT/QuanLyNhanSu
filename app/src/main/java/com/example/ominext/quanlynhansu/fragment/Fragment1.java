@@ -89,8 +89,6 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
         layoutManager = new GridLayoutManager(getContext(), 1);
         rvListEmployees.setLayoutManager(layoutManager);
         rvListEmployees.setHasFixedSize(true);
-        dataList.add(new EmployeesData(1, "2", "3", "3", "3"));
-        dataList.add(new EmployeesData(1, "2", "3", "3", "3"));
         adapter = new RecyclerViewAdapterFFrm1(dataList, getContext());
         rvListEmployees.setAdapter(adapter);
         adapter.setClickListener(this);
@@ -189,18 +187,18 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
     @Override
     public void onClick(View view, int position, EmployeesData data) {
         //set tất cả về false -> chưa check
-        for (int i = 0; i < dataList.size(); i++) {
-            dataList.get(i).setCheck(false);
-        }
-        dataList.get(position).setCheck(true);
-        for(int i=0;i<dataList.size();i++){
-            if(dataList.get(i).getCheck()){
-                view.setBackgroundColor(getResources().getColor(R.color.green));
-            }
-            else {
-                view.setBackgroundColor(getResources().getColor(R.color.white));
-            }
-        }
+//        for (int i = 0; i < dataList.size(); i++) {
+//            dataList.get(i).setCheck(false);
+//        }
+//        dataList.get(position).setCheck(true);
+//        for(int i=0;i<dataList.size();i++){
+//            if(dataList.get(i).getCheck()){
+//                view.setBackgroundColor(getResources().getColor(R.color.green));
+//            }
+//            else {
+//                view.setBackgroundColor(getResources().getColor(R.color.white));
+//            }
+//        }
 
 //        if (dataList.get(position).getCheck()) {
 //            view.setBackgroundColor(getResources().getColor(R.color.green));

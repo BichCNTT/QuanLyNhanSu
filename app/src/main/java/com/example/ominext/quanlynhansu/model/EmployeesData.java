@@ -14,15 +14,15 @@ public class EmployeesData {
     private String mDateOfBirth;
     private String mSex;
     private String mPhone;
-    private Boolean check;
+//    private Boolean check;
 
-    public Boolean getCheck() {
-        return check;
-    }
-
-    public void setCheck(Boolean check) {
-        this.check = check;
-    }
+//    public Boolean getCheck() {
+//        return check;
+//    }
+//
+//    public void setCheck(Boolean check) {
+//        this.check = check;
+//    }
 
     public EmployeesData() {
     }
@@ -35,14 +35,14 @@ public class EmployeesData {
         this.mPhone = mPhone;
     }
 
-    public EmployeesData(int mId, String mName, String mDateOfBirth, String mSex, String mPhone, Boolean check) {
-        this.mId = mId;
-        this.mName = mName;
-        this.mDateOfBirth = mDateOfBirth;
-        this.mSex = mSex;
-        this.mPhone = mPhone;
-        this.check = check;
-    }
+//    public EmployeesData(int mId, String mName, String mDateOfBirth, String mSex, String mPhone, Boolean check) {
+//        this.mId = mId;
+//        this.mName = mName;
+//        this.mDateOfBirth = mDateOfBirth;
+//        this.mSex = mSex;
+//        this.mPhone = mPhone;
+//        this.check = check;
+//    }
 
     public int getmId() {
         return mId;

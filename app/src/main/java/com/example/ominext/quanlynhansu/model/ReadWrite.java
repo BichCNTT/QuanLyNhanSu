@@ -22,7 +22,7 @@ public class ReadWrite {
         file = new File(Environment.getExternalStorageDirectory(), context.getPackageName());
         if (!file.exists())
             file.mkdir();
-        mAppDir = file.getAbsolutePath();
+        mAppDir = file.getAbsolutePath()+"/";
     }
 
     public static String readFromFile(File file) throws IOException {
