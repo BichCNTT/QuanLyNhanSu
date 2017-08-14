@@ -2,6 +2,7 @@ package com.example.ominext.quanlynhansu.fragment;
 
 import android.app.DatePickerDialog;
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
@@ -90,6 +91,7 @@ public class AddEmployees extends Fragment {
         int monthCurrent = calendar.get(Calendar.MONTH);
         int dayCurrent = calendar.get(Calendar.DAY_OF_MONTH);
         edtDateOfBirth.setText(dayCurrent + "/" + monthCurrent + "/" + yearCurrent);
+
     }
 
     @Override
@@ -100,7 +102,7 @@ public class AddEmployees extends Fragment {
         unbinder = ButterKnife.bind(this, view);
         return view;
     }
-
+//
 //    @Override
 //    public void onDestroyView() {
 //        super.onDestroyView();

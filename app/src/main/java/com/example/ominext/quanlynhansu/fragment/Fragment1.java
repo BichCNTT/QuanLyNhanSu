@@ -1,5 +1,6 @@
 package com.example.ominext.quanlynhansu.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
@@ -190,6 +191,39 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
                 break;
             case R.id.bt_edit:
 //               xóa rồi thêm vào
+                //xóa
+//                if ((position > -1) && (dataList.size() > 0) && (position <= dataList.size())) {
+//                    //có vị trí -> tìm data ở hàng thứ i -> xóa data đó đi
+//                    try {
+//                        StringWriter output = new StringWriter();
+//                        JSNWriter.writeJsonStream(output, employee);
+//                        String jsonText = output.toString();
+//                        FileHelper.deleteAnEmployee(mAppDir, fileName, fileName1, jsonText);
+//                        dataList.remove(position);
+//                        adapter.notifyDataSetChanged();
+//                        Toast.makeText(getContext(), "Xóa thành công", Toast.LENGTH_SHORT).show();
+//                        position = -1;
+//                    } catch (IOException e) {
+//                        Toast.makeText(getContext(), "Xóa thất bại", Toast.LENGTH_SHORT).show();
+//                    }
+//                } else {
+//                    Toast.makeText(getContext(), "Không có dữ liệu xóa", Toast.LENGTH_SHORT);
+//                }
+//
+//                Intent intent=new Intent(getContext(),AddEmployees.class);
+//                intent.putExtra("id",employee.getmId());
+//                intent.putExtra("name",employee.getmName());
+//                intent.putExtra("dateOfBirth",employee.getmDateOfBirth());
+//                intent.putExtra("sex",employee.getmSex());
+//                intent.putExtra("phone",employee.getmPhone());
+//                startActivity(intent);
+//                Fragment fragment = new AddEmployees();
+//                FragmentManager fragmentManager = getFragmentManager();
+//                FragmentTransaction transaction = fragmentManager.beginTransaction();
+//                transaction.add(R.id.frame_add_employees, fragment);
+//                transaction.commit();
+                //thêm vào employee
+                //file xml giống với file thêm nv. Nhưng giá trị được set bằng dòng hiện tại. Truyền dữ liệu giữa 2 fragment. Nảy sinh ban đầu k truyền dl giữa 2 fragment. H có phải thêm thuộc tính k?
 
                 break;
         }
