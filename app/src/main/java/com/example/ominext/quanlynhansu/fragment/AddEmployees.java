@@ -135,7 +135,7 @@ public class AddEmployees extends Fragment {
                 String name = edtName.getText().toString();
                 String phone = edtPhone.getText().toString();
                 String birthDay = edtDateOfBirth.getText().toString();
-                if ((id != "") && (name != "") && (phone != "") && (birthDay != "") && (cbMan.isChecked() || cbMan.isChecked())) {
+                if ((!id.equals("")) && (!name.equals("")) && (!phone.equals("")) && (!birthDay.equals("")) && (cbMan.isChecked() || cbMan.isChecked())) {
                     employee.setmId(Integer.parseInt(edtId.getText().toString()));
                     employee.setmName(edtName.getText().toString());
                     if (cbMan.isChecked()) {
@@ -158,7 +158,7 @@ public class AddEmployees extends Fragment {
                         Toast.makeText(getContext(), "Lưu thất bại", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(getContext(), "Vui lòng điền thông tin", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.esc:

@@ -9,6 +9,6 @@ import com.example.ominext.quanlynhansu.model.EmployeesData;
  */
 
 public interface OnItemClickListener {
-    public void onClick(View view, int position, EmployeesData data);
+    public void onClick(View view, int position);
 //    public void OnDoubleClick(View view,int position);
 }

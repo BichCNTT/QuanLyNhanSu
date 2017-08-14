@@ -61,7 +61,6 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
     Button btEdit;
     int position = 0;
 
-    boolean checked = true;
     File file;
     String mAppDir = null;
     private final String fileName = "nv1.txt";
@@ -100,7 +99,7 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
             File file = new File(Environment.getExternalStorageDirectory(), getContext().getPackageName());
             if (!file.exists())
                 file.mkdir();
-            String mAppDir = file.getAbsolutePath();
+            String mAppDir = file.getAbsolutePath()+"/";
 
             file = new File(mAppDir, "nv1.txt");
             if (!file.exists())
@@ -126,8 +125,11 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
                 employeesData1.setmDateOfBirth(birthDayE);
                 employeesData1.setmPhone(phoneE);
                 dataList.add(employeesData1);
-                adapter.notifyDataSetChanged();
+
             }
+            adapter.notifyDataSetChanged();
+//            reader.close();
+//            inputStream.close();
         } catch (Exception e) {
             Toast.makeText(getContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT);
         }
@@ -157,7 +159,7 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
 
     @OnClick({R.id.bt_delete, R.id.bt_edit})
     public void onViewClicked(View view) {
-        EmployeesData employee = null;
+        EmployeesData employee=null;
         if (dataList.size() > 0) {
             init();
             employee = new EmployeesData();
@@ -167,6 +169,7 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
             employee.setmDateOfBirth(dataList.get(position).getmDateOfBirth());
             employee.setmPhone(dataList.get(position).getmPhone());
         }
+        //hiển thị duy nhất 1 cái lên lv. lưu đc o load d
         switch (view.getId()) {
             case R.id.bt_delete:
                 if (dataList.size() > 0) {
@@ -193,21 +196,21 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
     }
 
     @Override
-    public void onClick(View view, int position, EmployeesData data) {
+    public void onClick(View view, int position) {
         this.position=position;
         //set tất cả về false -> chưa check
-//        for (int i = 0; i < dataList.size(); i++) {
-//            dataList.get(i).setCheck(false);
-//        }
-//        dataList.get(position).setCheck(true);
-//        for(int i=0;i<dataList.size();i++){
-//            if(dataList.get(i).getCheck()){
-//                view.setBackgroundColor(getResources().getColor(R.color.green));
-//            }
-//            else {
-//                view.setBackgroundColor(getResources().getColor(R.color.white));
-//            }
-//        }
+        for (int i = 0; i < dataList.size(); i++) {
+            dataList.get(i).setCheck(false);
+        }
+        dataList.get(position).setCheck(true);
+        for(int i=0;i<dataList.size();i++){
+            if(dataList.get(i).getCheck()){
+                rvListEmployees.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.green));
+            }
+            else {
+                rvListEmployees.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.white));
+            }
+        }
 
 //        if (dataList.get(position).getCheck()) {
 //            view.setBackgroundColor(getResources().getColor(R.color.green));
@@ -217,9 +220,7 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
 //                    view.setBackgroundColor(getResources().getColor(R.color.white));
 //                }
 //            }
-//
 //        }
         adapter.notifyDataSetChanged();
-
     }
 }

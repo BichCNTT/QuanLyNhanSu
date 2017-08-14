@@ -1,8 +1,6 @@
 package com.example.ominext.quanlynhansu;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -20,9 +18,7 @@ import com.example.ominext.quanlynhansu.adapter.SlidingMenuAdapter;
 import com.example.ominext.quanlynhansu.fragment.Fragment1;
 import com.example.ominext.quanlynhansu.fragment.Fragment2;
 import com.example.ominext.quanlynhansu.model.ItemSlideMenu;
-import com.example.ominext.quanlynhansu.model.ReadWrite;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,18 +35,9 @@ public class MainActivity extends ActionBarActivity {
     private List<ItemSlideMenu> slideMenuList;
     private SlidingMenuAdapter adapter;
     private ActionBarDrawerToggle actionBarDrawerToggle;
-    private String mAppDir;
-    File file=null;
-    public void init(Context context) {
-        file = new File(Environment.getExternalStorageDirectory(),context.getPackageName());
-        if (!file.exists())
-            file.mkdir();
-        mAppDir = file.getAbsolutePath()+"/";
-    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        init(this);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);

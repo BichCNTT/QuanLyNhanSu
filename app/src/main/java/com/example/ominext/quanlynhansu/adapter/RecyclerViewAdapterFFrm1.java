@@ -75,7 +75,8 @@ public class RecyclerViewAdapterFFrm1 extends RecyclerView.Adapter<RecyclerViewA
         TextView mTVSex;
         TextView mTVBirth;
         TextView mTVPhone;
-        Boolean checked=false;
+//        Boolean checked = false;
+
         public RecyclerViewHolder(final View itemView) {
             super(itemView);
             mId = (TextView) itemView.findViewById(R.id.id);
@@ -89,8 +90,7 @@ public class RecyclerViewAdapterFFrm1 extends RecyclerView.Adapter<RecyclerViewA
         @Override
         public void onClick(View view) {
             if (clickListener != null)
-                clickListener.onClick(view, getAdapterPosition(),employeesDataList.get(getAdapterPosition()));
-
+                clickListener.onClick(view, getAdapterPosition());
         }
 
     }
