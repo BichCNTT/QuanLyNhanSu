@@ -118,7 +118,7 @@ public class Fragment2 extends Fragment {
                 file.mkdir();
             String mAppDir = file.getAbsolutePath();
 
-            file = new File(mAppDir, "nv1.txt");
+            file = new File(mAppDir, "nhanvien1.txt");
             if (!file.exists())
                 throw new FileNotFoundException();
 

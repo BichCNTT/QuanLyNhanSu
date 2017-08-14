@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,12 +60,11 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
     Button btDelete;
     @BindView(R.id.bt_edit)
     Button btEdit;
-    int position = 0;
-
+    int position = -1;
     File file;
     String mAppDir = null;
-    private final String fileName = "nv1.txt";
-    private final String fileName1 = "nv2.txt";
+    private final String fileName = "nhanvien1.txt";
+    private final String fileName1 = "nhanvien2.txt";
 
     public static Fragment1 newInstance() {
         Fragment1 fragment = new Fragment1();
@@ -96,12 +96,8 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
     public void GetData() {
 //      lấy dữ liệu từ file text ra, chuyển chuỗi json thành đối tượng add vào datalist đẩy lên listview
         try {
-            File file = new File(Environment.getExternalStorageDirectory(), getContext().getPackageName());
-            if (!file.exists())
-                file.mkdir();
-            String mAppDir = file.getAbsolutePath()+"/";
-
-            file = new File(mAppDir, "nv1.txt");
+            init();
+            file = new File(mAppDir, "nhanvien1.txt");
             if (!file.exists())
                 throw new FileNotFoundException();
 
@@ -156,11 +152,12 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
             file.mkdir();
         mAppDir = file.getAbsolutePath() + "/";
     }
-
+//k kích thì position vẫn bằng gtrị cũ giả dụ =5. k kích nó vẫn bằng 5. tức là sau khi xóa xogn phải cho nó giá trị -1
     @OnClick({R.id.bt_delete, R.id.bt_edit})
     public void onViewClicked(View view) {
-        EmployeesData employee=null;
-        if (dataList.size() > 0) {
+        EmployeesData employee = null;
+        //tạo 1 ds xóa
+        if ((position>-1)&&(dataList.size() > 0) && (position <= dataList.size())) {
             init();
             employee = new EmployeesData();
             employee.setmId(dataList.get(position).getmId());
@@ -172,7 +169,7 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
         //hiển thị duy nhất 1 cái lên lv. lưu đc o load d
         switch (view.getId()) {
             case R.id.bt_delete:
-                if (dataList.size() > 0) {
+                if ((position>-1)&&(dataList.size() > 0) && (position <= dataList.size())) {
                     //có vị trí -> tìm data ở hàng thứ i -> xóa data đó đi
                     try {
                         StringWriter output = new StringWriter();
@@ -182,6 +179,7 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
                         dataList.remove(position);
                         adapter.notifyDataSetChanged();
                         Toast.makeText(getContext(), "Xóa thành công", Toast.LENGTH_SHORT).show();
+                        position=-1;
                     } catch (IOException e) {
                         Toast.makeText(getContext(), "Xóa thất bại", Toast.LENGTH_SHORT).show();
                     }
@@ -190,37 +188,25 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
                 }
                 break;
             case R.id.bt_edit:
-                //update data lên
                 break;
         }
     }
 
     @Override
     public void onClick(View view, int position) {
-        this.position=position;
-        //set tất cả về false -> chưa check
+        this.position = position;
         for (int i = 0; i < dataList.size(); i++) {
             dataList.get(i).setCheck(false);
         }
         dataList.get(position).setCheck(true);
-        for(int i=0;i<dataList.size();i++){
-            if(dataList.get(i).getCheck()){
+        for (int i = 0; i < dataList.size(); i++) {
+            if (i == position) {
                 rvListEmployees.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.green));
+
             }
             else {
-                rvListEmployees.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.white));
+                rvListEmployees.getChildAt(i).setBackgroundResource(R.color.white);
             }
         }
-
-//        if (dataList.get(position).getCheck()) {
-//            view.setBackgroundColor(getResources().getColor(R.color.green));
-//        } else {
-//            for (int i = 0; i < dataList.size(); i++) {
-//                if (i != position) {
-//                    view.setBackgroundColor(getResources().getColor(R.color.white));
-//                }
-//            }
-//        }
-        adapter.notifyDataSetChanged();
     }
 }

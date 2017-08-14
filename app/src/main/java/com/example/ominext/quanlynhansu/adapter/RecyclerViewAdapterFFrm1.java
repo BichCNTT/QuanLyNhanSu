@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.ominext.quanlynhansu.MainActivity;
@@ -34,7 +35,6 @@ public class RecyclerViewAdapterFFrm1 extends RecyclerView.Adapter<RecyclerViewA
     private OnItemClickListener clickListener;
     private List<EmployeesData> employeesDataList = new ArrayList<>();
     private LayoutInflater inflater;
-
     Context context;
 
     public RecyclerViewAdapterFFrm1(List<EmployeesData> employeesDataList, Context context) {
@@ -75,15 +75,18 @@ public class RecyclerViewAdapterFFrm1 extends RecyclerView.Adapter<RecyclerViewA
         TextView mTVSex;
         TextView mTVBirth;
         TextView mTVPhone;
+//        LinearLayout linearLayout;
 //        Boolean checked = false;
-
-        public RecyclerViewHolder(final View itemView) {
+        //k set cho item view mà set cho linearlayout
+        public RecyclerViewHolder(View itemView) {
             super(itemView);
             mId = (TextView) itemView.findViewById(R.id.id);
             mTVName = (TextView) itemView.findViewById(R.id.name);
             mTVSex = (TextView) itemView.findViewById(R.id.sex);
             mTVBirth = (TextView) itemView.findViewById(R.id.date);
             mTVPhone = (TextView) itemView.findViewById(R.id.phone);
+//            linearLayout=(LinearLayout)itemView.findViewById(R.id.row);
+//            linearLayout.setOnClickListener(this);
             itemView.setOnClickListener(this);
         }
 
@@ -92,6 +95,5 @@ public class RecyclerViewAdapterFFrm1 extends RecyclerView.Adapter<RecyclerViewA
             if (clickListener != null)
                 clickListener.onClick(view, getAdapterPosition());
         }
-
     }
 }

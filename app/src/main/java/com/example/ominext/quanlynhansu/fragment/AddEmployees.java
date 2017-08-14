@@ -66,12 +66,11 @@ public class AddEmployees extends Fragment {
     @BindView(R.id.img_calendar)
     ImageView imgCalendar;
     private File file;
-    private final String fileName = "nv1.txt";
+    private final String fileName = "nhanvien1.txt";
 
     public AddEmployees() {
         // Required empty public constructor
     }
-
 
     public static AddEmployees newInstance() {
         AddEmployees fragment = new AddEmployees();
@@ -102,11 +101,11 @@ public class AddEmployees extends Fragment {
         return view;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
+//    @Override
+//    public void onDestroyView() {
+//        super.onDestroyView();
+//        unbinder.unbind();
+//    }
 
     public void init() {
         file = new File(Environment.getExternalStorageDirectory(), getContext().getPackageName());
@@ -117,6 +116,7 @@ public class AddEmployees extends Fragment {
 
     @OnClick({R.id.cb_man, R.id.cb_woman, R.id.save, R.id.esc})
     public void onViewClicked(View view) {
+        EmployeesData employee = new EmployeesData();
         switch (view.getId()) {
             case R.id.cb_man:
                 if (cbWoman.isChecked()) {
@@ -130,17 +130,18 @@ public class AddEmployees extends Fragment {
                 break;
             case R.id.save:
 //              1 nhân viên kiểu employee
-                EmployeesData employee = new EmployeesData();
+//                EmployeesData employee = new EmployeesData();
                 String id = edtId.getText().toString();
                 String name = edtName.getText().toString();
                 String phone = edtPhone.getText().toString();
                 String birthDay = edtDateOfBirth.getText().toString();
-                if ((!id.equals("")) && (!name.equals("")) && (!phone.equals("")) && (!birthDay.equals("")) && (cbMan.isChecked() || cbMan.isChecked())) {
+                if ((!id.equals("")) && (!name.equals("")) && (!phone.equals("")) && (!birthDay.equals("")) && (cbMan.isChecked() || cbWoman.isChecked())) {
                     employee.setmId(Integer.parseInt(edtId.getText().toString()));
                     employee.setmName(edtName.getText().toString());
                     if (cbMan.isChecked()) {
                         employee.setmSex("Nam");
-                    } else if (cbWoman.isChecked()) {
+                    }
+                    if (cbWoman.isChecked()) {
                         employee.setmSex("Nữ");
                     }
                     employee.setmDateOfBirth(edtDateOfBirth.getText().toString());
