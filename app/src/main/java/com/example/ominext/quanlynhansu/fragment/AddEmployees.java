@@ -91,7 +91,22 @@ public class AddEmployees extends Fragment {
         int monthCurrent = calendar.get(Calendar.MONTH);
         int dayCurrent = calendar.get(Calendar.DAY_OF_MONTH);
         edtDateOfBirth.setText(dayCurrent + "/" + monthCurrent + "/" + yearCurrent);
+        Bundle bundle=this.getArguments();
+        String id=bundle.getString("id");
+        String name=bundle.getString("name");
+        String phone=bundle.getString("phone");
+        String dateOfBirth=bundle.getString("dateOfBirth");
+        String sex=bundle.getString("dateOfBirth");
 
+        edtId.setText(id);
+        edtName.setText(name);
+        edtDateOfBirth.setText(dateOfBirth);
+        edtPhone.setText(phone);
+        if(sex.equals("Nữ")){
+            cbWoman.setChecked(true);
+        } else {
+            cbMan.setChecked(true);
+        }
     }
 
     @Override
