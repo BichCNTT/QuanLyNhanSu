@@ -126,6 +126,7 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
                 employeesData1.setmDateOfBirth(birthDayE);
                 employeesData1.setmPhone(phoneE);
                 dataList.add(employeesData1);
+                adapter.notifyDataSetChanged();
             }
         } catch (Exception e) {
             Toast.makeText(getContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT);
@@ -156,26 +157,33 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
 
     @OnClick({R.id.bt_delete, R.id.bt_edit})
     public void onViewClicked(View view) {
-        init();
-        EmployeesData employee = new EmployeesData();
-        employee.setmId(dataList.get(position).getmId());
-        employee.setmName(dataList.get(position).getmName());
-        employee.setmSex(dataList.get(position).getmSex());
-        employee.setmDateOfBirth(dataList.get(position).getmDateOfBirth());
-        employee.setmPhone(dataList.get(position).getmPhone());
+        EmployeesData employee = null;
+        if (dataList.size() > 0) {
+            init();
+            employee = new EmployeesData();
+            employee.setmId(dataList.get(position).getmId());
+            employee.setmName(dataList.get(position).getmName());
+            employee.setmSex(dataList.get(position).getmSex());
+            employee.setmDateOfBirth(dataList.get(position).getmDateOfBirth());
+            employee.setmPhone(dataList.get(position).getmPhone());
+        }
         switch (view.getId()) {
             case R.id.bt_delete:
-                //có vị trí -> tìm data ở hàng thứ i -> xóa data đó đi
-                try {
-                    StringWriter output = new StringWriter();
-                    JSNWriter.writeJsonStream(output, employee);
-                    String jsonText = output.toString();
-                    FileHelper.deleteAnEmployee(mAppDir, fileName, fileName1, jsonText);
-                    dataList.remove(position);
-                    adapter.notifyDataSetChanged();
-                    Toast.makeText(getContext(), "Xóa thành công", Toast.LENGTH_SHORT).show();
-                } catch (IOException e) {
-                    Toast.makeText(getContext(), "Xóa thất bại", Toast.LENGTH_SHORT).show();
+                if (dataList.size() > 0) {
+                    //có vị trí -> tìm data ở hàng thứ i -> xóa data đó đi
+                    try {
+                        StringWriter output = new StringWriter();
+                        JSNWriter.writeJsonStream(output, employee);
+                        String jsonText = output.toString();
+                        FileHelper.deleteAnEmployee(mAppDir, fileName, fileName1, jsonText);
+                        dataList.remove(position);
+                        adapter.notifyDataSetChanged();
+                        Toast.makeText(getContext(), "Xóa thành công", Toast.LENGTH_SHORT).show();
+                    } catch (IOException e) {
+                        Toast.makeText(getContext(), "Xóa thất bại", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getContext(), "Không có dữ liệu xóa", Toast.LENGTH_SHORT);
                 }
                 break;
             case R.id.bt_edit:
@@ -186,6 +194,7 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
 
     @Override
     public void onClick(View view, int position, EmployeesData data) {
+        this.position=position;
         //set tất cả về false -> chưa check
 //        for (int i = 0; i < dataList.size(); i++) {
 //            dataList.get(i).setCheck(false);
