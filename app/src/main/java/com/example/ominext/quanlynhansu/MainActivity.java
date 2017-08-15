@@ -59,7 +59,7 @@ public class MainActivity extends ActionBarActivity {
                 setTitle(slideMenuList.get(i).getTitle());
                 slidingMenu.setItemChecked(i, true);
                 drawerLayout.closeDrawer(slidingMenu);
-                replaceFragment(i);
+                 replaceFragment(i);
             }
         });
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_opened, R.string.drawer_closed) {
@@ -100,7 +100,7 @@ public class MainActivity extends ActionBarActivity {
         actionBarDrawerToggle.syncState();
     }
 
-    private void replaceFragment(int pos) {
+    public void replaceFragment(int pos) {
         Fragment fragment = null;
         switch (pos) {
             case 0:
@@ -110,7 +110,6 @@ public class MainActivity extends ActionBarActivity {
                 fragment = new Fragment2();
                 break;
             default:
-
                 break;
         }
         if (fragment != null) {
@@ -118,9 +117,26 @@ public class MainActivity extends ActionBarActivity {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.frame_layout, fragment);
-//            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
-//            drawerLayout.closeDrawer(slidingMenu);
         }
     }
+
+    public void changeFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .add(R.id.frame_layout, fragment)
+                .addToBackStack(fragment.getClass().getSimpleName())
+                .commit();
+    }
+
+//    @Override
+//    public void onBackPressed() {
+//        FragmentManager fm = getSupportFragmentManager();
+//        if (fm.getBackStackEntryCount() > 0) {
+//            fm.popBackStack();
+//        } else {
+//            super.onBackPressed();
+//        }
+//    }
 }

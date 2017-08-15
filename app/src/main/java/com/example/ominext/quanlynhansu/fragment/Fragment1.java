@@ -64,9 +64,11 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
     int position = -1;
     File file;
     String mAppDir = null;
+
     private final String fileName = "nhanvien1.txt";
     private final String fileName1 = "nhanvien2.txt";
 
+    public int flag=0;
     public static Fragment1 newInstance() {
         Fragment1 fragment = new Fragment1();
         return fragment;
@@ -125,8 +127,8 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
 
             }
             adapter.notifyDataSetChanged();
-//            reader.close();
-//            inputStream.close();
+            reader.close();
+            inputStream.close();
         } catch (Exception e) {
             Toast.makeText(getContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT);
         }
@@ -161,7 +163,6 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
         mAppDir = file.getAbsolutePath() + "/";
     }
 
-    //k kích thì position vẫn bằng gtrị cũ giả dụ =5. k kích nó vẫn bằng 5. tức là sau khi xóa xogn phải cho nó giá trị -1
     @OnClick({R.id.bt_delete, R.id.bt_edit})
     public void onViewClicked(View view) {
         EmployeesData employee = null;
@@ -175,7 +176,6 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
             employee.setmDateOfBirth(dataList.get(position).getmDateOfBirth());
             employee.setmPhone(dataList.get(position).getmPhone());
         }
-        //hiển thị duy nhất 1 cái lên lv. lưu đc o load d
         switch (view.getId()) {
             case R.id.bt_delete:
                 if ((position > -1) && (dataList.size() > 0) && (position <= dataList.size())) {
@@ -197,8 +197,7 @@ public class Fragment1 extends Fragment implements OnItemClickListener {
                 }
                 break;
             case R.id.bt_edit:
-//               xóa rồi thêm vào
-                //xóa
+
                 if ((position > -1) && (dataList.size() > 0) && (position <= dataList.size())) {
                     //có vị trí -> tìm data ở hàng thứ i -> xóa data đó đi
                     try {

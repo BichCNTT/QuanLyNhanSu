@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ominext.quanlynhansu.MainActivity;
 import com.example.ominext.quanlynhansu.R;
 import com.example.ominext.quanlynhansu.model.EmployeesData;
 import com.example.ominext.quanlynhansu.model.JSNWriter;
@@ -68,6 +69,15 @@ public class AddEmployees extends Fragment {
     ImageView imgCalendar;
     private File file;
     private final String fileName = "nhanvien1.txt";
+    public int flag;
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
+    }
 
     public AddEmployees() {
         // Required empty public constructor
@@ -91,22 +101,23 @@ public class AddEmployees extends Fragment {
         int monthCurrent = calendar.get(Calendar.MONTH);
         int dayCurrent = calendar.get(Calendar.DAY_OF_MONTH);
         edtDateOfBirth.setText(dayCurrent + "/" + monthCurrent + "/" + yearCurrent);
-        Bundle bundle=this.getArguments();
-        String id=bundle.getString("id");
-        String name=bundle.getString("name");
-        String phone=bundle.getString("phone");
-        String dateOfBirth=bundle.getString("dateOfBirth");
-        String sex=bundle.getString("dateOfBirth");
+        Bundle bundle = this.getArguments();
+        String id = bundle.getString("id");
+        String name = bundle.getString("name");
+        String phone = bundle.getString("phone");
+        String dateOfBirth = bundle.getString("dateOfBirth");
+        String sex = bundle.getString("dateOfBirth");
 
         edtId.setText(id);
         edtName.setText(name);
         edtDateOfBirth.setText(dateOfBirth);
         edtPhone.setText(phone);
-        if(sex.equals("Nữ")){
+        if (sex.equals("Nữ")) {
             cbWoman.setChecked(true);
         } else {
             cbMan.setChecked(true);
         }
+
     }
 
     @Override
@@ -117,12 +128,12 @@ public class AddEmployees extends Fragment {
         unbinder = ButterKnife.bind(this, view);
         return view;
     }
-//
-//    @Override
-//    public void onDestroyView() {
-//        super.onDestroyView();
-//        unbinder.unbind();
-//    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
 
     public void init() {
         file = new File(Environment.getExternalStorageDirectory(), getContext().getPackageName());
@@ -147,7 +158,8 @@ public class AddEmployees extends Fragment {
                 break;
             case R.id.save:
 //              1 nhân viên kiểu employee
-//                EmployeesData employee = new EmployeesData();
+//               EmployeesData employee = new EmployeesData();
+                setFlag(1);
                 String id = edtId.getText().toString();
                 String name = edtName.getText().toString();
                 String phone = edtPhone.getText().toString();
@@ -170,14 +182,16 @@ public class AddEmployees extends Fragment {
                         JSNWriter.writeJsonStream(output, employee);
                         String jSonText = output.toString();
                         FileHelper.saveToFile(mAppDir, fileName, jSonText);
-                        Toast.makeText(getContext(), "Lưu thành công", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Hoàn tất", Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
                         e.printStackTrace();
-                        Toast.makeText(getContext(), "Lưu thất bại", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Xảy ra lỗi khi lưu", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(getContext(), "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+
                 }
+                MainActivity activity = (MainActivity) getActivity();
+                activity.replaceFragment(0);
                 break;
             case R.id.esc:
                 edtId.setText("");
@@ -190,6 +204,7 @@ public class AddEmployees extends Fragment {
                 break;
         }
     }
+
     //    khi kích vào img calendar thì hiển thị lên 1 dialog nd là 1 datpicker
     @OnClick(R.id.img_calendar)
     public void onViewClicked() {
@@ -208,4 +223,5 @@ public class AddEmployees extends Fragment {
         }, getContext());
         newFragment.show(getActivity().getFragmentManager(), "Date");
     }
+
 }
