@@ -105,12 +105,6 @@ public class RecyclerViewAdapterFFrm1 extends RecyclerView.Adapter<RecyclerViewA
                 }
             });
         }
-//      lấy
-//        @Override
-//        public void onClick(View view) {
-//            if (clickListener != null)
-//                clickListener.onClick(view, getAdapterPosition());
-//        }
 
         public void bindDataWithViewHolder(EmployeesData dataItem, int currentPosition) {
             this.mDataItem = dataItem;

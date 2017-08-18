@@ -117,7 +117,6 @@ public class AddEmployees extends Fragment {
         } else {
             cbMan.setChecked(true);
         }
-
     }
 
     @Override
@@ -204,13 +203,10 @@ public class AddEmployees extends Fragment {
                 break;
         }
     }
-
     //    khi kích vào img calendar thì hiển thị lên 1 dialog nd là 1 datpicker
     @OnClick(R.id.img_calendar)
     public void onViewClicked() {
         android.app.DialogFragment newFragment;
-//        newFragment.show(getActivity().getFragmentManager(),"datePicker");
-//        datePicker=newFragment;
         newFragment = new DatePickerDialogFragment(new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
